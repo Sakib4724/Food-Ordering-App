@@ -100,7 +100,7 @@ const Header = () => {
 
       {
         // loggedInUser() ? <button>Logout</button> : <button>Login</button>
-        isLoggedIn ? (
+        isLoggedIn && buttonContext.data=='Logout' ? (
           <button
             className="mt-8 mr-8 mb-8 text-white bg-red-900 p-2 w-20 rounded-lg hover:bg-gray-700"
             onClick={() => {
