@@ -107,7 +107,7 @@ app.post("/login", async (req, res) => {
     });
   }
 
-  JWT.sign({ user }, jwtKey, { expiresIn: "20s" }, (err, token) => {
+  JWT.sign({ user }, jwtKey, { expiresIn: "1h" }, (err, token) => {
     if (err) {
       res.send({ result: "something went wrong, please try after some time!" });
     }
@@ -139,6 +139,10 @@ app.post("/instamart", verifyToken, async (req, res, next) => {
   // console.log("Header: ", header);
   console.warn("Middleware called!");
 });
+
+app.post("/cart", verifyToken, async(req, res, next) => {
+  console.log("Cart Middleware");
+})
 
 function verifyToken(req, res, next) {
   const token = req.headers["authorization"];

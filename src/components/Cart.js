@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { FoodItem } from "./FoodItem";
 import { clearCart } from "../utils/cartSlice";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const Cart = () => {
   //Problem: Everytime our store changes, it will re-render the component. So it not convenient for the big production ready apk
@@ -16,23 +16,62 @@ const Cart = () => {
     dispatch(clearCart());
   };
 
+  const [authorized, setAuthorized] = useState(true);
+
+  useEffect(() => {
+    const checkAuthorization = async() => {
+      try{
+        const response = await fetch("http://localhost:4000/cart", {
+          method: "POST",
+          headers: {
+            authorization: JSON.parse(localStorage.getItem('token'))
+          }
+        })
+
+        const result = await response.json();
+
+        if (result.error) {
+          setAuthorized(false);
+        } else {
+          setAuthorized(true);
+        }
+      }
+
+      catch(error) {
+        console.log(error);
+      }
+    };
+
+    checkAuthorization();
+  }, [])
+
   return (
     <>
-      <div className="flex flex-col text-center gap-7">
-        <h1 className="font-bold text-3xl p-2">Cart Items - {cartItems.length}</h1>
-        <button
-          className="text-white bg-red-900 w-28 rounded-lg hover:bg-gray-700 p-2 m-auto"
-          onClick={() => handleClearCart()}
-        >
-          Clear Cart
-        </button>
-      </div>
+      {authorized ? (
+        <>
+          <div className="flex flex-col text-center gap-7">
+            <h1 className="font-bold text-3xl p-2">
+              Cart Items - {cartItems.length}
+            </h1>
+            <button
+              className="text-white bg-red-900 w-28 rounded-lg hover:bg-gray-700 p-2 m-auto"
+              onClick={() => handleClearCart()}
+            >
+              Clear Cart
+            </button>
+          </div>
 
-      <div className="flex">
-        {cartItems.map((item) => (
-          <FoodItem key={item.id} {...item} />
-        ))}
-      </div>
+          <div className="flex">
+            {cartItems.map((item) => (
+              <FoodItem key={item.id} {...item} />
+            ))}
+          </div>
+        </>
+      ) : (
+        <h1 className="font-bold text-2xl text-center flex items-center justify-center h-screen">
+          Please Log-in to access this Page !
+        </h1>
+      )}
     </>
   );
 };

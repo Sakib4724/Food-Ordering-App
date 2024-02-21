@@ -7,3 +7,5 @@ Snapshots
 coverage
 
 node_modules
+
+.env
