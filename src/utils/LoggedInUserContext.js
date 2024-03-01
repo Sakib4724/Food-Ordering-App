@@ -7,5 +7,6 @@ LoggedInUserContext.displayName = "LoggedInUserContext";
 export const LoggedInUserProvider = (props) => {
 
     const [data, setData] = useState('');
-    return <LoggedInUserContext.Provider value={{data, setData}}>{props.children}</LoggedInUserContext.Provider>
+    const [email, setEmail] = useState('');
+    return <LoggedInUserContext.Provider value={{data, setData, email, setEmail}}>{props.children}</LoggedInUserContext.Provider>
 };

@@ -14,6 +14,7 @@ const createError = require("http-errors");
 const jwtKey = "demokey";
 
 const User = require("./models/user");
+const Cart = require("./models/cart");
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/foodapkuser")
@@ -63,6 +64,16 @@ app.post("/register", async (req, res) => {
   user.name = req.body.name;
   user.email = req.body.email;
   user.password = req.body.password;
+  // user.cart = [
+  //   {
+  //     restroName: "Sahara",
+  //     restroImage: "faf4124124",
+  //     menuName: "Chicken Kadai",
+  //     menuImage: "afafawf412",
+  //     menuDescription: "Cuisine-Mughlai",
+  //     menuPrice: "500",
+  //   },
+  // ];
   const result = await user.save();
   // console.log(doc);
 
@@ -117,6 +128,26 @@ app.post("/login", async (req, res) => {
     res.send({ user, auth: token });
   });
 
+  //*********Adding Cart Items to the database*********
+
+  // const num = user.cart.length;
+  // console.log("num: ", num);
+
+  // const cartItem = {
+  //   restroName: "Powai Darbar",
+  //   restroImage: "sg4t34",
+  //   menuName: "Veg Manchurian",
+  //   menuImage: "gasgasf",
+  //   menuDescription: "Cuisine-Chinease",
+  //   menuPrice: "100",
+  // };
+
+  // user.cart.push(cartItem);
+
+  // await user.save();
+
+  //*************************************************** */
+
   // const accessToken = await signAccessToken(user.id);
   // const refreshToken = await signRefreshToken(user.id);
 
@@ -129,10 +160,10 @@ app.get("/register", async (req, res) => {
   res.json(docs);
 });
 
-app.get("/login",  async (req, res) => {
+app.get("/login", async (req, res) => {
   const docs = await User.find({});
   res.json(docs);
-})
+});
 
 app.post("/instamart", verifyToken, async (req, res, next) => {
   // const header = req.headers['authorization'];
@@ -140,8 +171,51 @@ app.post("/instamart", verifyToken, async (req, res, next) => {
   console.warn("Middleware called!");
 });
 
-app.post("/cart", verifyToken, async(req, res, next) => {
-  console.log("Cart Middleware");
+app.post("/cart", verifyToken, async (req, res, next) => {
+  // const {restroName, restroImage, menuImage, menuName, menuDescription, menuPrice} = req.body;
+  // let cart = new Cart();
+  // cart.restroName = req.body.restroName;
+  // cart.restroImage = req.body.restroImage;
+  // cart.menuImage = req.body.menuImage;
+  // cart.menuName = req.body.menuName;
+  // cart.menuDescription = req.body.menuDescription;
+  // cart.menuPrice = req.body.menuPrice;
+  // const result = await cart.save();
+  // res.send(result);
+});
+
+app.post("/add-to-cart", async(req, res, next) => {
+  console.log("add-to-cart api");
+  const {email, restroName, restroImage, menuName, menuImage, menuDescription, menuPrice} = req.body;
+  const user = await User.findOne({ email });
+
+  if(!user){
+    return res.json({
+      error: "You are not logged in!",
+    });
+  }
+  
+  // const cartItem = {
+  //   restroName: restroName,
+  //   restroImage: restroImage,
+  //   menuName: menuName,
+  //   menuImage: menuImage,
+  //   menuDescription: menuDescription,
+  //   menuPrice: menuPrice
+  // }
+
+    const cartItem = {
+    restroName: restroName,
+    restroImage: restroImage,
+    menuName: menuName,
+    menuImage: menuImage,
+    menuDescription: menuDescription,
+    menuPrice: menuPrice/100
+  };
+
+  user.cart.push(cartItem);
+
+  await user.save();
 })
 
 function verifyToken(req, res, next) {
@@ -154,13 +228,11 @@ function verifyToken(req, res, next) {
         return res.json({
           error: "Token is Invalid!",
         });
-
       } else {
         next();
       }
     });
-  }
-  else{
+  } else {
     return res.json({
       error: "Token is missing!",
     });

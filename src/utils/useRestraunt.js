@@ -14,8 +14,8 @@ const useRestraunt = (id) => {
         const data = await fetch( FETCH_MENU_URL + id );
         const json = await data.json();
         // console.log(json.data);
-        setRestraunt(json.data?.cards[2]?.card?.card?.info);
-        setMenu(json.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards)
+        setRestraunt(json.data?.cards[0]?.card?.card?.info);
+        setMenu(json.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.carousel)
       }
 
     //return restraunt data

@@ -44,6 +44,7 @@ const Login = () => {
           localStorage.setItem("token", JSON.stringify(response.auth));
         }
         loggedInUserState.setData(response.user.name);
+        loggedInUserState.setEmail(response.user.email);
         buttonState.setData("Logout");
         alert("User Logged In Successfully !");
         navigate("/");
