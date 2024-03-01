@@ -187,36 +187,79 @@ app.post("/cart", verifyToken, async (req, res, next) => {
 app.post("/add-to-cart", async(req, res, next) => {
   console.log("add-to-cart api");
   const {email, restroName, restroImage, menuName, menuImage, menuDescription, menuPrice} = req.body;
-  const user = await User.findOne({ email });
 
-  if(!user){
+  try{
+    const user = await User.findOne({ email });
+
+    if(!user){
+      return res.json({
+        error: "You are not logged in!",
+      });
+    }
+    
+    // const cartItem = {
+    //   restroName: restroName,
+    //   restroImage: restroImage,
+    //   menuName: menuName,
+    //   menuImage: menuImage,
+    //   menuDescription: menuDescription,
+    //   menuPrice: menuPrice
+    // }
+  
+      const cartItem = {
+      restroName: restroName,
+      restroImage: restroImage,
+      menuName: menuName,
+      menuImage: menuImage,
+      menuDescription: menuDescription,
+      menuPrice: menuPrice/100
+    };
+  
+    user.cart.push(cartItem);
+  
+    await user.save();
+
     return res.json({
-      error: "You are not logged in!",
+      message: "Item Added to cart successfully",
     });
   }
-  
-  // const cartItem = {
-  //   restroName: restroName,
-  //   restroImage: restroImage,
-  //   menuName: menuName,
-  //   menuImage: menuImage,
-  //   menuDescription: menuDescription,
-  //   menuPrice: menuPrice
-  // }
+  catch(error) {
+    console.error("Error adding item from cart:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 
-    const cartItem = {
-    restroName: restroName,
-    restroImage: restroImage,
-    menuName: menuName,
-    menuImage: menuImage,
-    menuDescription: menuDescription,
-    menuPrice: menuPrice/100
-  };
-
-  user.cart.push(cartItem);
-
-  await user.save();
 })
+
+app.post("/remove-from-cart", async(req, res, next) => {
+  console.log("remove-from-cart api");
+  const { email, restroName, menuName } = req.body;
+
+  try {
+    // Find the user by email
+    const user = await User.findOne({ email });
+
+    // If user does not exist, return error
+    if (!user) {
+      return res.json({
+        error: "User not found",
+      });
+    }
+
+    // Update the user document to remove the item from the cart
+    await User.findOneAndUpdate(
+      { email },
+      { $pull: { cart: { restroName, menuName } } }
+    );
+
+    return res.json({
+      message: "Item removed from cart successfully",
+    });
+  } catch (error) {
+    console.error("Error removing item from cart:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 function verifyToken(req, res, next) {
   const token = req.headers["authorization"];

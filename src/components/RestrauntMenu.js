@@ -46,43 +46,62 @@ const RestrauntMenu = () => {
     dispatch(addItem(item));
   };
 
-  const [menuIndex, setMenuIndex] = useState(null);
+  const removeFoodItem = (item) => {
+    dispatch(removeItem());
+  };
 
-  const [data, setData] = useState({
-    email: loggedInUserState.email,
-    restroName: restraunt?.name,
-    restroImage: restraunt?.cloudinaryImageId,
-    menuName: menu[menuIndex]?.dish?.info?.name,
-    menuImage: menu[menuIndex]?.dish?.info?.imageId,
-    menuDescription: menu[menuIndex]?.dish?.info?.description,
-    menuPrice: menu[menuIndex]?.dish?.info?.price,
-  })
+  // const [menuIndex, setMenuIndex] = useState(0);
+
+  // const [data, setData] = useState({
+  //   email: loggedInUserState.email,
+  //   restroName: restraunt?.name,
+  //   restroImage: restraunt?.cloudinaryImageId,
+  //   menuName: menu[menuIndex]?.dish?.info?.name,
+  //   menuImage: menu[menuIndex]?.dish?.info?.imageId,
+  //   menuDescription: menu[menuIndex]?.dish?.info?.description,
+  //   menuPrice: menu[menuIndex]?.dish?.info?.price,
+  // })
+
+
+
+  // useEffect(() => {
+  //   if (restraunt) {
+  //     setData({
+  //       email: loggedInUserState.email,
+  //       restroName: restraunt?.name,
+  //       restroImage: restraunt?.cloudinaryImageId,
+  //       menuName: menu[menuIndex]?.dish?.info?.name,
+  //       menuImage: menu[menuIndex]?.dish?.info?.imageId,
+  //       menuDescription: menu[menuIndex]?.dish?.info?.description,
+  //       menuPrice: menu[menuIndex]?.dish?.info?.price
+  //     });
+  //   }
+  // }, [restraunt, menu, menuIndex, loggedInUserState.email]);
+
+  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
 
   useEffect(() => {
-    if (restraunt) {
-      setData({
-        email: loggedInUserState.email,
-        restroName: restraunt?.name,
-        restroImage: restraunt?.cloudinaryImageId,
-        menuName: menu[menuIndex]?.dish?.info?.name,
-        menuImage: menu[menuIndex]?.dish?.info?.imageId,
-        menuDescription: menu[menuIndex]?.dish?.info?.description,
-        menuPrice: menu[menuIndex]?.dish?.info?.price
-      });
+    if (menu && menu.length > 0) {
+      setSelectedMenuItem(menu[0]?.dish?.info);
     }
-  }, [restraunt, menu, menuIndex, loggedInUserState.email]);
+  }, [menu]);
 
-  const addToCart = async() => {
-
-    // const { name, email, password } = data;
-
+  const addToCart = async (item) => {
     try {
       const res = await fetch("http://localhost:4000/add-to-cart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          email: loggedInUserState.email,
+          restroName: restraunt?.name,
+          restroImage: restraunt?.cloudinaryImageId,
+          menuName: item.name,
+          menuImage: item.imageId,
+          menuDescription: item.description,
+          menuPrice: item.price,
+        }),
       });
 
       const response = await res.json();
@@ -90,18 +109,42 @@ const RestrauntMenu = () => {
       if (response.error) {
         alert(response.error);
       } else {
-        // localStorage.setItem("user", JSON.stringify(response.result));
-        // localStorage.setItem("token", JSON.stringify(response.auth));
         alert("Added to Cart Successfully !");
-        // navigate("/login");
       }
-
-      // setData({});
     } catch (error) {
       console.log(error);
     }
   };
 
+  const removeFromCart = async (item) => {
+    try {
+      const res = await fetch("http://localhost:4000/remove-from-cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: loggedInUserState.email,
+          restroName: restraunt?.name,
+          restroImage: restraunt?.cloudinaryImageId,
+          menuName: item.name,
+          menuImage: item.imageId,
+          menuDescription: item.description,
+          menuPrice: item.price,
+        }),
+      });
+
+      const response = await res.json();
+
+      if (response.error) {
+        alert(response.error);
+      } else {
+        alert("Removed from Cart Successfully !");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return !restraunt ? (
     <Shimmer />
@@ -140,13 +183,23 @@ const RestrauntMenu = () => {
                 {item?.dish?.info?.name}
                 <button
                   className="p-2 ml-44 bg-red-900 hover:bg-gray-700 text-white rounded-md block align-middle"
-                  onClick={() => {
+                  onClick={async() => {
                     addFoodItem(item?.dish?.info)
-                    setMenuIndex(index);
-                    addToCart();
+                    setSelectedMenuItem(item?.dish?.info);
+                    addToCart(item?.dish?.info);
                   }}
                 >
                   Add
+                </button>
+                <button
+                  className="p-2 ml-44 bg-red-900 hover:bg-gray-700 text-white rounded-md block align-middle"
+                  onClick={() => {
+                    removeFoodItem();
+                    setSelectedMenuItem(item?.dish?.info);
+                    removeFromCart(item?.dish?.info);
+                  }}
+                >
+                  Remove
                 </button>
               </li>
             </div>
