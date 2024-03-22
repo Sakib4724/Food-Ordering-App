@@ -227,7 +227,6 @@ app.post("/add-to-cart", async(req, res, next) => {
     console.error("Error adding item from cart:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
-
 })
 
 app.post("/remove-from-cart", async(req, res, next) => {
@@ -239,9 +238,9 @@ app.post("/remove-from-cart", async(req, res, next) => {
     const user = await User.findOne({ email });
 
     // If user does not exist, return error
-    if (!user) {
+    if(!user){
       return res.json({
-        error: "User not found",
+        error: "You are not logged in!",
       });
     }
 
