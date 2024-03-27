@@ -56,7 +56,7 @@ const Body = () => {
     <Shimmer />
   ) : (
     <>
-      <div className="search-container p-5 bg-pink-50 my-5">
+      <div className="search-container p-2 bg-yellow-50 my-3 mx-auto max-w-lg w-80">
         <input
           type="text"
           className="search-input focus:bg-green-50 p-2 m-2"
@@ -67,7 +67,7 @@ const Body = () => {
           }}
         />
         <button
-          className="search-btn p-2 m-2 bg-red-900 hover:bg-gray-700 text-white rounded-lg"
+          className="search-btn p-2 m-2 bg-red-900 hover:bg-gray-700 text-white rounded-lg font-pop2 font-normal"
           onClick={() => {
             //need to filter the data
             //update the state of the restraunts

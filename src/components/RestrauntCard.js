@@ -12,15 +12,15 @@ export const RestrauntCard = ({
 
   // const { name, cloudinaryImageId, cuisines, avgRating } = restraunt.info;
   return (
-    <div className="card w-[200px] p-2 m-2 shadow-lg bg-pink-50">
+    <div className="card w-[200px] p-2 m-2 shadow-xl bg-yellow-100 rounded-md border-2 border-gray-200 h-96">
       <img
         alt="Item Image"
         src={IMG_CDN_URL + cloudinaryImageId}
-        className="invisible"
+        className="h-40 w-60"
       />
-      <h2 className="font-bold text-xl">{name}</h2>
-      <h3>{cuisines.join(", ")}</h3>
-      <h4>{avgRating}</h4>
+      <h2 className="font-bold font-pop2 text-xl">{name}</h2>
+      <h3 className="font-pop2 text-base">{cuisines.join(", ")}</h3>
+      <h4>{avgRating} ⭐</h4>
     </div>
   );
 };

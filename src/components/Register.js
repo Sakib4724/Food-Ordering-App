@@ -69,14 +69,20 @@ const Register = () => {
           {data.name} ___ {data.email} ___ {data.password}
         </p> */}
 
-        <h1 className="text-center p-4 font-bold text-2xl ml-24">Register</h1>
+        <h1 className="text-center p-5 font-bold text-2xl mx-auto font-pop2">
+          Register
+        </h1>
 
-        <form method="POST" onSubmit={registerUser} className="">
-          <div className="flex justify-center gap-2">
+        <form
+          method="POST"
+          onSubmit={registerUser}
+          className="bg-yellow-100 w-96 mx-auto rounded-xl"
+        >
+          <div className="flex justify-center gap-2 p-10">
             <div className="flex flex-col">
-              <label className="p-1 m-2">Name</label>
-              <label className="p-1 m-2 mt-3">Email</label>
-              <label className="p-1 m-2 mt-3">Password</label>
+              <label className="p-1 m-2 font-pop2">Name</label>
+              <label className="p-1 m-2 mt-3 font-pop2">Email</label>
+              <label className="p-1 m-2 mt-3 font-pop2">Password</label>
             </div>
 
             <div className="flex flex-col">
@@ -87,7 +93,6 @@ const Register = () => {
                 value={data.name}
                 onChange={(e) => {
                   setData({ ...data, name: e.target.value });
-                  // setUsername(e.target.value)
                 }}
               />
 
@@ -106,15 +111,16 @@ const Register = () => {
                 value={data.password}
                 onChange={(e) => setData({ ...data, password: e.target.value })}
               />
-
-              <button
-                className="text-white bg-red-900 p-2 w-20 rounded-lg hover:bg-gray-700 m-auto"
-                type="submit"
-                onClick={() => setUsername(data.name)}
-              >
-                Submit
-              </button>
             </div>
+          </div>
+          <div className="flex justify-center pb-5">
+            <button
+              className="text-white bg-red-900 p-2 w-20 rounded-lg hover:bg-gray-700 font-pop2 font-normal"
+              type="submit"
+              onClick={() => setUsername(data.name)}
+            >
+              Submit
+            </button>
           </div>
         </form>
 

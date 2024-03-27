@@ -1,10 +1,10 @@
-import React, {useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnline from "../utils/useOnline";
 import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
 // import React from "react";
-import Logo from "../assets/img/logo1.png";
+import Logo from "../assets/img/barakat2.jpg";
 import Register from "./Register";
 import { LoggedInUserContext } from "../utils/LoggedInUserContext";
 import { ButtonContext } from "../utils/ButtonUserContext";
@@ -18,14 +18,20 @@ import { useDispatch } from "react-redux";
 // axios.defaults.withCredentials = true;
 
 export const Title = () => (
-  <a href="/">
-    <img
+  <div className="">
+    <a
+      href="/"
+      className="text-red-900 font-bold text-3xl flex items-center h-full ml-5 font-pop"
+    >
+      Barakat
+      {/* <img
       className="logo h-24 p-2"
       alt="logo"
       // src="https://s3.ap-south-1.amazonaws.com/trademark-base.vakilsearch.com/trademarklogo/5653883.png"
       src={Logo}
-    />
-  </a>
+    /> */}
+    </a>
+  </div>
 );
 
 const Header = () => {
@@ -54,29 +60,31 @@ const Header = () => {
   console.log(cartItems);
 
   return (
-    <div className="header flex justify-between bg-pink-50 shadow-lg">
+    <div className="header flex justify-between bg-yellow-200 shadow-lg">
       <Title />
 
       <div className="nav-items">
         <ul className="flex py-10">
           <Link to="/">
-            <li className="px-2 text-lg ml-20">Home</li>
+            <li className="px-2 text-lg ml-20 font-pop2 font-medium">
+              Home
+            </li>
           </Link>
 
           <Link to="/about">
-            <li className="px-2 text-lg ml-10">About</li>
+            <li className="px-2 text-lg ml-10 font-pop2 font-medium">About</li>
           </Link>
 
           <Link to="/contact">
-            <li className="px-2 text-lg ml-10">Contact</li>
+            <li className="px-2 text-lg ml-10 font-pop2 font-medium">Contact</li>
           </Link>
 
           <Link to="/instamart">
-            <li className="px-2 text-lg ml-10">Instamart</li>
+            <li className="px-2 text-lg ml-10 font-pop2 font-medium">Instamart</li>
           </Link>
 
           <Link to="/cart">
-            <li className="px-2 text-lg ml-10">
+            <li className="px-2 text-lg ml-10 font-pop2 font-medium">
               Cart - {cartItems.length} items
             </li>
           </Link>
@@ -85,11 +93,13 @@ const Header = () => {
 
       <h1 className="m-auto"> {isOnline ? "✅" : "❌"} </h1>
 
-      <span className="p-10 font-bold text-red-900 ">{loggedInUserContext.data}</span>
+      <span className="p-10 font-bold text-red-900 ">
+        {loggedInUserContext.data}
+      </span>
 
       <Link to="/register">
         <button
-          className="mt-8 mr-8 text-white bg-red-900 p-2 w-20 rounded-lg hover:bg-gray-700"
+          className="mt-8 mr-8 text-white bg-red-900 p-2 w-20 rounded-lg hover:bg-gray-700 font-pop2 font-normal"
           onClick={() => {
             // setIsLoggedIn(true);
           }}
@@ -100,29 +110,28 @@ const Header = () => {
 
       {
         // loggedInUser() ? <button>Logout</button> : <button>Login</button>
-        isLoggedIn && buttonContext.data=='Logout' ? (
+        isLoggedIn && buttonContext.data == "Logout" ? (
           <button
-            className="mt-8 mr-8 mb-8 text-white bg-red-900 p-2 w-20 rounded-lg hover:bg-gray-700"
+            className="mt-8 mr-8 mb-8 text-white bg-red-900 p-2 w-20 rounded-lg hover:bg-gray-700 font-pop2 font-normal"
             onClick={() => {
               setIsLoggedIn(false);
               loggedInUserContext.setData("");
-              buttonContext.setData('Login');
+              buttonContext.setData("Login");
               handleClearCart();
               localStorage.clear();
             }}
           >
             {buttonContext.data}
-            
           </button>
         ) : (
           <Link to="/login">
             <button
-              className="mt-8 mr-8 mb-8 text-white bg-red-900 p-2 w-20 rounded-lg hover:bg-gray-700"
+              className="mt-8 mr-8 mb-8 text-white bg-red-900 p-2 w-20 rounded-lg hover:bg-gray-700 font-pop2 font-normal"
               onClick={() => {
                 setIsLoggedIn(true);
               }}
             >
-              {buttonContext.data} 
+              {buttonContext.data}
             </button>
           </Link>
         )

@@ -27,12 +27,12 @@ const Contact = () => {
 
   return (
     <>
-      <div className="flex flex-col text-center justify-center p-5">
+      <div className="mx-auto text-center p-5">
         <h5 className="text-2xl">Get In Touch</h5>
         <h2 className="font-bold text-3xl">Contact Us</h2>
       </div>
 
-      <div className="flex justify-center gap-24 mt-5">
+      <div className="flex justify-center gap-24 bg-yellow-100 p-10 mx-auto rounded-xl" style={{width: "800px"}}>
         <div className="flex flex-col">
           <article className="pb-24">
             <MdOutlineEmail className="text-3xl" />

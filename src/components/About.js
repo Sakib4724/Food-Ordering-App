@@ -60,42 +60,42 @@ class About extends React.Component {
         {/* <Profile name={"Sakib"} />
         <ProfileComponent name={"Shaikh"} /> */}
 
-        <div className="p-10">
-          <h1 className="font-bold text-2xl text-center bg-pink-50 text-red-900 p-2 border border-r-2 rounded-lg">
-            About Us - Food Villa
+        <div className="p-10 font-pop2">
+          <h1 className="font-bold text-2xl text-center bg-yellow-100 text-red-900 p-2 border border-r-2 rounded-lg">
+            About Us - Barakat
           </h1>
           <p>
-            Welcome to Food Villa, your ultimate destination for delicious meals
-            delivered right to your doorstep. At Food Villa, we're passionate
-            about food and committed to bringing you a seamless and delightful
-            dining experience.
+            Welcome to Barakat, your ultimate destination for delicious meals
+            delivered right to your doorstep. At Barakat, we're passionate about
+            food and committed to bringing you a seamless and delightful dining
+            experience.
           </p>
         </div>
 
-        <div className="p-10">
-          <h1 className="font-bold text-2xl text-center bg-pink-50 text-red-900 p-2 border border-r-2 rounded-lg">
+        <div className="p-10 font-pop2">
+          <h1 className="font-bold text-2xl text-center bg-yellow-100 text-red-900 p-2 border border-r-2 rounded-lg">
             Our Story
           </h1>
           <p>
-            Food Villa started with a simple idea: to connect food lovers with
-            the best restaurants in town. Founded in 2024, we've quickly grown
-            to become one of the leading food delivery platforms, serving hungry
+            Barakat started with a simple idea: to connect food lovers with the
+            best restaurants in town. Founded in 2024, we've quickly grown to
+            become one of the leading food delivery platforms, serving hungry
             customers across all over the India. Our journey began with a vision
             to revolutionize the way people order food, making it easier,
             faster, and more convenient than ever before.
           </p>
         </div>
 
-        <div className="p-10">
-          <h1 className="font-bold text-2xl text-center bg-pink-50 text-red-900 p-2 border border-r-2 rounded-lg">
+        <div className="p-10 font-pop2">
+          <h1 className="font-bold text-2xl text-center bg-yellow-100 text-red-900 p-2 border border-r-2 rounded-lg">
             Our Mission
           </h1>
           <p>
-            At Food Villa, our mission is to satisfy your cravings and exceed
-            your expectations with every bite. We're on a mission to deliver not
-            just meals, but moments of joy and satisfaction to your doorstep.
-            Whether you're craving comfort food, exploring new cuisines, or
-            looking for healthy options, we've got you covered.
+            At Barakat, our mission is to satisfy your cravings and exceed your
+            expectations with every bite. We're on a mission to deliver not just
+            meals, but moments of joy and satisfaction to your doorstep. Whether
+            you're craving comfort food, exploring new cuisines, or looking for
+            healthy options, we've got you covered.
           </p>
         </div>
       </>

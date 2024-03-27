@@ -8,7 +8,7 @@ const Footer = () => {
   const loggedInUserContext = useContext(LoggedInUserContext);
 
   return (
-    <footer className="fixed bottom-0 w-full bg-gray-200 p-4 text-center">
+    <footer className="fixed bottom-0 w-full bg-yellow-100 p-4 text-center">
       <h4 className="text-gray-800">
         This site is developed by Sakib Shaikh !
       </h4>

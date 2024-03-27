@@ -19,14 +19,14 @@ const Cart = () => {
   const [authorized, setAuthorized] = useState(true);
 
   useEffect(() => {
-    const checkAuthorization = async() => {
-      try{
+    const checkAuthorization = async () => {
+      try {
         const response = await fetch("http://localhost:4000/cart", {
           method: "POST",
           headers: {
-            authorization: JSON.parse(localStorage.getItem('token'))
-          }
-        })
+            authorization: JSON.parse(localStorage.getItem("token")),
+          },
+        });
 
         const result = await response.json();
 
@@ -35,33 +35,32 @@ const Cart = () => {
         } else {
           setAuthorized(true);
         }
-      }
-
-      catch(error) {
+      } catch (error) {
         console.log(error);
       }
     };
 
     checkAuthorization();
-  }, [])
+  }, []);
 
   return (
     <>
       {authorized ? (
         <>
           <div className="flex flex-col text-center gap-7">
-            <h1 className="font-bold text-3xl p-2">
+            <h1 className="text-center p-2 font-bold text-2xl mx-auto font-pop2 mt-4">
               Cart Items - {cartItems.length}
             </h1>
+
             <button
-              className="text-white bg-red-900 w-28 rounded-lg hover:bg-gray-700 p-2 m-auto"
+              className="text-white bg-red-900 w-28 rounded-lg hover:bg-gray-700 p-2 m-auto font-pop2 font-normal"
               onClick={() => handleClearCart()}
             >
               Clear Cart
             </button>
           </div>
 
-          <div className="flex">
+          <div className="flex flex-wrap bg-yellow-200 m-10 rounded-xl">
             {cartItems.map((item) => (
               <FoodItem key={item.id} {...item} />
             ))}
