@@ -56,10 +56,13 @@ const Body = () => {
     <Shimmer />
   ) : (
     <>
-      <div className="search-container p-2 bg-yellow-50 my-3 mx-auto max-w-lg w-80">
+      <div
+        className="search-container p-2 bg-yellow-100 my-3 mx-auto max-w-lg rounded-xl"
+        style={{ width: "330px" }}
+      >
         <input
           type="text"
-          className="search-input focus:bg-green-50 p-2 m-2"
+          className="search-input focus:bg-green-50 p-2 m-3 border-2 border-gray-200"
           placeholder="Search"
           value={searchInput}
           onChange={(e) => {

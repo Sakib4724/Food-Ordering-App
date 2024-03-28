@@ -9,7 +9,7 @@ const Footer = () => {
 
   return (
     <footer className="fixed bottom-0 w-full bg-yellow-100 p-4 text-center">
-      <h4 className="text-gray-800">
+      <h4 className="text-gray-800 font-pop2 font-medium">
         This site is developed by Sakib Shaikh !
       </h4>
     </footer>

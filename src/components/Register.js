@@ -80,9 +80,9 @@ const Register = () => {
         >
           <div className="flex justify-center gap-2 p-10">
             <div className="flex flex-col">
-              <label className="p-1 m-2 font-pop2">Name</label>
-              <label className="p-1 m-2 mt-3 font-pop2">Email</label>
-              <label className="p-1 m-2 mt-3 font-pop2">Password</label>
+              <label className="p-1 m-2 font-pop2 font-medium">Name</label>
+              <label className="p-1 m-2 mt-3 font-pop2 font-medium">Email</label>
+              <label className="p-1 m-2 mt-3 font-pop2 font-medium">Password</label>
             </div>
 
             <div className="flex flex-col">
@@ -124,7 +124,7 @@ const Register = () => {
           </div>
         </form>
 
-        {username != null && <h2>Hello {username} !</h2>}
+        {/* {username != null && <h2>Hello {username} !</h2>} */}
       </div>
     </>
   );

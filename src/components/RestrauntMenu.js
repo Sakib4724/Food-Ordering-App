@@ -6,11 +6,13 @@ import useRestraunt from "../utils/useRestraunt";
 import { addItem, clearCart, removeItem } from "../utils/cartSlice";
 import { useDispatch } from "react-redux";
 import React from "react";
+import { CartContext } from "../utils/CartContext";
 
 import { LoggedInUserContext } from "../utils/LoggedInUserContext";
 
 const RestrauntMenu = () => {
   const loggedInUserState = useContext(LoggedInUserContext);
+  const cartContext = useContext(CartContext);
 
   // const [restraunt, setRestraunt] = useState(null);
   // const [menu, setMenu] = useState([]);
@@ -106,6 +108,7 @@ const RestrauntMenu = () => {
       if (response.error) {
         alert(response.error);
       } else {
+        cartContext.setCartItems(response.user.cart);
         alert("Added to Cart Successfully !");
       }
     } catch (error) {
@@ -116,7 +119,7 @@ const RestrauntMenu = () => {
   const removeFromCart = async (item) => {
     try {
       const res = await fetch("http://localhost:4000/remove-from-cart", {
-        method: "POST",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
@@ -136,6 +139,7 @@ const RestrauntMenu = () => {
       if (response.error) {
         alert(response.error);
       } else {
+        cartContext.setCartItems(response.cart);
         alert("Removed from Cart Successfully !");
       }
     } catch (error) {
@@ -217,7 +221,7 @@ const RestrauntMenu = () => {
                   </button>
                   <button
                     className="p-2 m-2 w-24 bg-red-900 hover:bg-gray-700 text-white rounded-md block align-middle font-normal"
-                    onClick={() => {
+                    onClick={async() => {
                       removeFoodItem();
                       setSelectedMenuItem(item?.dish?.info);
                       removeFromCart(item?.dish?.info);

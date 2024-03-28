@@ -7,11 +7,14 @@ import UserContext from "../utils/UserContext";
 // import store from "../utils/store";
 import { LoggedInUserContext } from "../utils/LoggedInUserContext";
 import { ButtonContext } from "../utils/ButtonUserContext";
+import { CartContext } from "../utils/CartContext";
 
 const Login = () => {
   const loggedInUserState = useContext(LoggedInUserContext);
 
   const buttonState = useContext(ButtonContext);
+
+  const cartState = useContext(CartContext);
 
   const navigate = useNavigate();
 
@@ -46,7 +49,8 @@ const Login = () => {
         loggedInUserState.setData(response.user.name);
         loggedInUserState.setEmail(response.user.email);
         buttonState.setData("Logout");
-        alert("User Logged In Successfully !");
+        cartState.setCartItems(response.user.cart);
+        
         navigate("/");
       }
 
@@ -95,8 +99,8 @@ const Login = () => {
         >
           <div className="flex justify-center gap-2 p-10">
             <div className="flex flex-col">
-              <label className="p-1 m-2 mt-2 font-pop2">Email</label>
-              <label className="p-1 m-2 mt-3 font-pop2">Password</label>
+              <label className="p-1 m-2 mt-2 font-pop2 font-medium">Email</label>
+              <label className="p-1 m-2 mt-3 font-pop2 font-medium">Password</label>
             </div>
 
             <div className="flex flex-col">

@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { FoodItem } from "./FoodItem";
 import { clearCart } from "../utils/cartSlice";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { CartContext } from "../utils/CartContext";
 
 const Cart = () => {
   //Problem: Everytime our store changes, it will re-render the component. So it not convenient for the big production ready apk
@@ -15,6 +16,8 @@ const Cart = () => {
   const handleClearCart = () => {
     dispatch(clearCart());
   };
+
+  const cartContext = useContext(CartContext);
 
   const [authorized, setAuthorized] = useState(true);
 
@@ -61,13 +64,13 @@ const Cart = () => {
           </div>
 
           <div className="flex flex-wrap bg-yellow-200 m-10 rounded-xl">
-            {cartItems.map((item) => (
+            {(cartContext.cartItems).map((item) => (
               <FoodItem key={item.id} {...item} />
             ))}
           </div>
         </>
       ) : (
-        <h1 className="font-bold text-2xl text-center flex items-center justify-center h-screen">
+        <h1 className="font-pop2 font-bold text-2xl text-center flex items-center justify-center h-screen">
           Please Log-in to access this Page !
         </h1>
       )}

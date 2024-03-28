@@ -55,14 +55,14 @@ const Instamart = () => {
   // }, []);
 
   useEffect(() => {
-    const checkAuthorization = async() => {
-      try{
+    const checkAuthorization = async () => {
+      try {
         const response = await fetch("http://localhost:4000/instamart", {
           method: "POST",
           headers: {
-            authorization: JSON.parse(localStorage.getItem('token'))
-          }
-        })
+            authorization: JSON.parse(localStorage.getItem("token")),
+          },
+        });
 
         const result = await response.json();
 
@@ -71,60 +71,52 @@ const Instamart = () => {
         } else {
           setAuthorized(true);
         }
-      }
-
-      catch(error) {
+      } catch (error) {
         console.log(error);
       }
     };
 
     checkAuthorization();
-  }, [])
-
-
+  }, []);
 
   return (
     <>
-    { authorized ? (
-      <>
-    
-      <h1 className="text-3xl p-2 m-2 font-bold">Instamart</h1>
+      {authorized ? (
+        <>
+          <h1 className="text-3xl p-2 m-2 font-bold">Instamart</h1>
 
-      <Section
-        title={"About Instamart"}
-        description={
-          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque quas repellat minima, quia architecto sequi consequatur fugiat aliquam nihil explicabo impedit quisquam est, inventore ab accusamus vitae veritatis! Ratione pariatur delectus repudiandae officia dicta quasi sunt hic cupiditate, quos, at illo adipisci quas harum? Consectetur rerum, odit harum fuga quae autem culpa et, repellat quo assumenda optio cumque ut unde. Atque ipsum iure recusandae aspernatur. Tenetur magni voluptatibus possimus expedita perspiciatis, eveniet a deserunt sed! Ducimus eos enim ipsa expedita sequi amet libero cum quo sapiente rerum laboriosam iure soluta exercitationem voluptate, et totam illo explicabo officia repellendus eligendi. Molestiae."
-        }
-        isVisible={visibleSection === "about"}
-        setIsVisible={() => setVisibleSection("about")}
-      />
+          <Section
+            title={"About Instamart"}
+            description={
+              "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque quas repellat minima, quia architecto sequi consequatur fugiat aliquam nihil explicabo impedit quisquam est, inventore ab accusamus vitae veritatis! Ratione pariatur delectus repudiandae officia dicta quasi sunt hic cupiditate, quos, at illo adipisci quas harum? Consectetur rerum, odit harum fuga quae autem culpa et, repellat quo assumenda optio cumque ut unde. Atque ipsum iure recusandae aspernatur. Tenetur magni voluptatibus possimus expedita perspiciatis, eveniet a deserunt sed! Ducimus eos enim ipsa expedita sequi amet libero cum quo sapiente rerum laboriosam iure soluta exercitationem voluptate, et totam illo explicabo officia repellendus eligendi. Molestiae."
+            }
+            isVisible={visibleSection === "about"}
+            setIsVisible={() => setVisibleSection("about")}
+          />
 
-      <Section
-        title={"Team Instamart"}
-        description={
-          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque quas repellat minima, quia architecto sequi consequatur fugiat aliquam nihil explicabo impedit quisquam est, inventore ab accusamus vitae veritatis! Ratione pariatur delectus repudiandae officia dicta quasi sunt hic cupiditate, quos, at illo adipisci quas harum? Consectetur rerum, odit harum fuga quae autem culpa et, repellat quo assumenda optio cumque ut unde. Atque ipsum iure recusandae aspernatur. Tenetur magni voluptatibus possimus expedita perspiciatis, eveniet a deserunt sed! Ducimus eos enim ipsa expedita sequi amet libero cum quo sapiente rerum laboriosam iure soluta exercitationem voluptate, et totam illo explicabo officia repellendus eligendi. Molestiae."
-        }
-        isVisible={visibleSection === "team"}
-        setIsVisible={() => setVisibleSection("team")}
-      />
+          <Section
+            title={"Team Instamart"}
+            description={
+              "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque quas repellat minima, quia architecto sequi consequatur fugiat aliquam nihil explicabo impedit quisquam est, inventore ab accusamus vitae veritatis! Ratione pariatur delectus repudiandae officia dicta quasi sunt hic cupiditate, quos, at illo adipisci quas harum? Consectetur rerum, odit harum fuga quae autem culpa et, repellat quo assumenda optio cumque ut unde. Atque ipsum iure recusandae aspernatur. Tenetur magni voluptatibus possimus expedita perspiciatis, eveniet a deserunt sed! Ducimus eos enim ipsa expedita sequi amet libero cum quo sapiente rerum laboriosam iure soluta exercitationem voluptate, et totam illo explicabo officia repellendus eligendi. Molestiae."
+            }
+            isVisible={visibleSection === "team"}
+            setIsVisible={() => setVisibleSection("team")}
+          />
 
-      <Section
-        title={"Careers Instamart"}
-        description={
-          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque quas repellat minima, quia architecto sequi consequatur fugiat aliquam nihil explicabo impedit quisquam est, inventore ab accusamus vitae veritatis! Ratione pariatur delectus repudiandae officia dicta quasi sunt hic cupiditate, quos, at illo adipisci quas harum? Consectetur rerum, odit harum fuga quae autem culpa et, repellat quo assumenda optio cumque ut unde. Atque ipsum iure recusandae aspernatur. Tenetur magni voluptatibus possimus expedita perspiciatis, eveniet a deserunt sed! Ducimus eos enim ipsa expedita sequi amet libero cum quo sapiente rerum laboriosam iure soluta exercitationem voluptate, et totam illo explicabo officia repellendus eligendi. Molestiae."
-        }
-        isVisible={visibleSection === "career"}
-        setIsVisible={() => setVisibleSection("career")}
-      />
-
-      </>
-
+          <Section
+            title={"Careers Instamart"}
+            description={
+              "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque quas repellat minima, quia architecto sequi consequatur fugiat aliquam nihil explicabo impedit quisquam est, inventore ab accusamus vitae veritatis! Ratione pariatur delectus repudiandae officia dicta quasi sunt hic cupiditate, quos, at illo adipisci quas harum? Consectetur rerum, odit harum fuga quae autem culpa et, repellat quo assumenda optio cumque ut unde. Atque ipsum iure recusandae aspernatur. Tenetur magni voluptatibus possimus expedita perspiciatis, eveniet a deserunt sed! Ducimus eos enim ipsa expedita sequi amet libero cum quo sapiente rerum laboriosam iure soluta exercitationem voluptate, et totam illo explicabo officia repellendus eligendi. Molestiae."
+            }
+            isVisible={visibleSection === "career"}
+            setIsVisible={() => setVisibleSection("career")}
+          />
+        </>
       ) : (
-
-        <h1 className="font-bold text-2xl text-center flex items-center justify-center h-screen">Please Log-in to access this Page !</h1>
-
-      )
-    }
+        <h1 className="font-pop2 font-bold text-2xl text-center flex items-center justify-center h-screen">
+          Please Log-in to access this Page !
+        </h1>
+      )}
 
       {/* <AboutInstamart />
         <DetailsofInstamart />
@@ -132,7 +124,7 @@ const Instamart = () => {
         <Product />
         <Careers /> */}
 
-        {/* {
+      {/* {
           authorized ? (
             <h1>Protected Component..!!</h1>
           ) : (

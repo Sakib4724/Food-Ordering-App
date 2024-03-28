@@ -15,6 +15,7 @@ import Register from "./src/components/Register";
 import Login from "./src/components/Login";
 import { LoggedInUserProvider } from "./src/utils/LoggedInUserContext";
 import { ButtonContextProvider } from "./src/utils/ButtonUserContext";
+import { CartProvider } from "./src/utils/CartContext";
 // import Instamart from "./src/components/Instamart";
 
 
@@ -102,9 +103,11 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ButtonContextProvider>
   <LoggedInUserProvider>
+  <CartProvider>
     <RouterProvider router={appRouter}>
       <AppLayout />
     </RouterProvider>
+    </CartProvider>
   </LoggedInUserProvider>
   </ButtonContextProvider>
 );

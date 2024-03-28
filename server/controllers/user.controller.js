@@ -90,6 +90,8 @@ const loginUser = async (req, res) => {
     });
   }
 
+  const cart = user.cart;
+
   JWT.sign({ user }, jwtKey, { expiresIn: "1h" }, (err, token) => {
     if (err) {
       res.send({ result: "something went wrong, please try after some time!" });
@@ -97,7 +99,7 @@ const loginUser = async (req, res) => {
 
     console.log("LogToken: ", token);
 
-    res.send({ user, auth: token });
+    res.send({ user, cart, auth: token });
   });
 
   //*********Adding Cart Items to the database*********
@@ -125,6 +127,7 @@ const loginUser = async (req, res) => {
 
   // res.send({ accessToken, refreshToken });
   // res.json(user);
+
 };
 
 module.exports = { registerUser, loginUser };

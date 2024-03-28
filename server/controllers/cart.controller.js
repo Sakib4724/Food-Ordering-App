@@ -42,8 +42,11 @@ const addToCart = async (req, res, next) => {
     user.cart.push(cartItem);
 
     await user.save();
+    // console.log(user.cart.length);
+    // const cart = user.cart;
 
     return res.json({
+      user,
       message: "Item Added to cart successfully",
     });
   } catch (error) {
@@ -73,7 +76,11 @@ const removeFromCart = async (req, res, next) => {
       { $pull: { cart: { restroName, menuName } } }
     );
 
+    // Fetch the updated user document
+    const updatedUser = await User.findOne({ email });
+
     return res.json({
+      cart: updatedUser.cart, // Send the updated cart data back to the frontend
       message: "Item removed from cart successfully",
     });
   } catch (error) {
