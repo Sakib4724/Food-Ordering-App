@@ -3,6 +3,7 @@ import { FoodItem } from "./FoodItem";
 import { clearCart } from "../utils/cartSlice";
 import React, { useState, useEffect, useContext } from "react";
 import { CartContext } from "../utils/CartContext";
+import { LoggedInUserContext } from "../utils/LoggedInUserContext";
 
 const Cart = () => {
   //Problem: Everytime our store changes, it will re-render the component. So it not convenient for the big production ready apk
@@ -13,11 +14,37 @@ const Cart = () => {
 
   const dispatch = useDispatch();
 
-  const handleClearCart = () => {
-    dispatch(clearCart());
-  };
-
   const cartContext = useContext(CartContext);
+  const loggedInUserState = useContext(LoggedInUserContext);
+
+  const handleClearCart = async() => {
+    // dispatch(clearCart());
+    try{
+      console.log("try clearcart")
+      const res = await fetch("http://localhost:4000/clear-cart", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: loggedInUserState.email
+        })
+      })
+
+      const response = await res.json();
+
+      if(response.error) {
+        alert(response.error);
+      } 
+      else{
+        cartContext.setCartItems(response.cart);
+        alert("Cart cleared Successfully !");
+      }
+    }
+    catch(error) {
+      console.log(error);
+    }
+  };
 
   const [authorized, setAuthorized] = useState(true);
 
@@ -52,7 +79,7 @@ const Cart = () => {
         <>
           <div className="flex flex-col text-center gap-7">
             <h1 className="text-center p-2 font-bold text-2xl mx-auto font-pop2 mt-4">
-              Cart Items - {cartItems.length}
+              Cart Items - {cartContext.cartItems.length}
             </h1>
 
             <button

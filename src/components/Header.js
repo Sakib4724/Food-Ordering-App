@@ -30,7 +30,7 @@ export const Title = () => (
       href="/"
       className="text-red-900 font-bold text-3xl flex items-center h-full ml-5 font-pop"
     >
-      Barakat
+      Zaikaa
       {/* <img
       className="logo h-24 p-2"
       alt="logo"

@@ -11,7 +11,7 @@ export const FoodItem = ({ menuName, menuImage, menuPrice }) => {
       />
       <p className="font-pop2 font-semibold">{menuName}</p>
       {/* <h3>{description}</h3> */}
-      <p className="font-pop2 font-medium">₹ {menuPrice / 100}</p>
+      <p className="font-pop2 font-medium">₹ {menuPrice}</p>
     </div>
   );
 };

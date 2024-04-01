@@ -62,11 +62,11 @@ class About extends React.Component {
 
         <div className="p-10 font-pop2">
           <h1 className="font-bold text-2xl text-center bg-yellow-100 text-red-900 p-2 border border-r-2 rounded-lg">
-            About Us - Barakat
+            About Us - Zaikaa
           </h1>
           <p>
-            Welcome to Barakat, your ultimate destination for delicious meals
-            delivered right to your doorstep. At Barakat, we're passionate about
+            Welcome to Zaikaa, your ultimate destination for delicious meals
+            delivered right to your doorstep. At Zaikaa, we're passionate about
             food and committed to bringing you a seamless and delightful dining
             experience.
           </p>
@@ -77,7 +77,7 @@ class About extends React.Component {
             Our Story
           </h1>
           <p>
-            Barakat started with a simple idea: to connect food lovers with the
+            Zaikaa started with a simple idea: to connect food lovers with the
             best restaurants in town. Founded in 2024, we've quickly grown to
             become one of the leading food delivery platforms, serving hungry
             customers across all over the India. Our journey began with a vision
@@ -91,7 +91,7 @@ class About extends React.Component {
             Our Mission
           </h1>
           <p>
-            At Barakat, our mission is to satisfy your cravings and exceed your
+            At Zaikaa, our mission is to satisfy your cravings and exceed your
             expectations with every bite. We're on a mission to deliver not just
             meals, but moments of joy and satisfaction to your doorstep. Whether
             you're craving comfort food, exploring new cuisines, or looking for

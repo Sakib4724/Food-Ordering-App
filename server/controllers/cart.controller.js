@@ -89,7 +89,32 @@ const removeFromCart = async (req, res, next) => {
   }
 };
 
+const clearCart = async(req, res, next) => {
+  const {email} = req.body;
+
+  try{
+    await User.findOneAndUpdate(
+      { email },
+      { cart: [] }, // Set the cart array to an empty array
+      { new: true } // To return the updated document after the update operation
+    );
+    
+    const updatedUser = await User.findOne({ email });
+    
+    return res.json({
+      cart: updatedUser.cart,
+      message: "Cart cleared successfully"
+    });
+
+  }
+  catch(error) {
+    console.error("Error while clearing the cart: ", error);
+    return res.status(500).json({error: "Internal server error"});
+  }
+}
+
 module.exports = {
     addToCart,
-    removeFromCart
+    removeFromCart,
+    clearCart
 }
