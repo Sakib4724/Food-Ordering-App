@@ -272,6 +272,7 @@ const Header = () => {
               onClick={() => {
                 setIsLoggedIn(false);
                 loggedInUserContext.setData("");
+                cartContext.cartItems.length = 0;
                 buttonContext.setData("Login");
                 handleClearCart();
                 localStorage.clear();
