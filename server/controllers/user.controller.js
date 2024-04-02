@@ -90,8 +90,11 @@ const loginUser = async (req, res) => {
     });
   }
 
+<<<<<<< HEAD
   const cart = user.cart;
 
+=======
+>>>>>>> 2d505c60af282ed29b9835c5e7192c11899277eb
   JWT.sign({ user }, jwtKey, { expiresIn: "1h" }, (err, token) => {
     if (err) {
       res.send({ result: "something went wrong, please try after some time!" });
@@ -99,7 +102,11 @@ const loginUser = async (req, res) => {
 
     console.log("LogToken: ", token);
 
+<<<<<<< HEAD
     res.send({ user, cart, auth: token });
+=======
+    res.send({ user, auth: token });
+>>>>>>> 2d505c60af282ed29b9835c5e7192c11899277eb
   });
 
   //*********Adding Cart Items to the database*********
@@ -127,7 +134,10 @@ const loginUser = async (req, res) => {
 
   // res.send({ accessToken, refreshToken });
   // res.json(user);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2d505c60af282ed29b9835c5e7192c11899277eb
 };
 
 module.exports = { registerUser, loginUser };

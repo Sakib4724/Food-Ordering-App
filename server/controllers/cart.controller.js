@@ -42,11 +42,16 @@ const addToCart = async (req, res, next) => {
     user.cart.push(cartItem);
 
     await user.save();
+<<<<<<< HEAD
     // console.log(user.cart.length);
     // const cart = user.cart;
 
     return res.json({
       user,
+=======
+
+    return res.json({
+>>>>>>> 2d505c60af282ed29b9835c5e7192c11899277eb
       message: "Item Added to cart successfully",
     });
   } catch (error) {
@@ -76,11 +81,15 @@ const removeFromCart = async (req, res, next) => {
       { $pull: { cart: { restroName, menuName } } }
     );
 
+<<<<<<< HEAD
     // Fetch the updated user document
     const updatedUser = await User.findOne({ email });
 
     return res.json({
       cart: updatedUser.cart, // Send the updated cart data back to the frontend
+=======
+    return res.json({
+>>>>>>> 2d505c60af282ed29b9835c5e7192c11899277eb
       message: "Item removed from cart successfully",
     });
   } catch (error) {
@@ -89,6 +98,7 @@ const removeFromCart = async (req, res, next) => {
   }
 };
 
+<<<<<<< HEAD
 const clearCart = async(req, res, next) => {
   const {email} = req.body;
 
@@ -117,4 +127,9 @@ module.exports = {
     addToCart,
     removeFromCart,
     clearCart
+=======
+module.exports = {
+    addToCart,
+    removeFromCart
+>>>>>>> 2d505c60af282ed29b9835c5e7192c11899277eb
 }
