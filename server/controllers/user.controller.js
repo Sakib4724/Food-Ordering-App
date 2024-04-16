@@ -2,18 +2,20 @@ const User = require("../models/user");
 const JWT = require("jsonwebtoken");
 const jwtKey = "demokey";
 const bcrypt = require("bcrypt");
+const otpGenerator = require('otp-generator');
+const OTP = require("../models/otp");
 
 const registerUser = async (req, res) => {
   // console.log(req.body);
   //   res.send("Hello");
   // res.json(req.body);
 
-  const { name, email, password } = req.body;
+  const { name, email, password, otp } = req.body;
 
-  if (!name) {
+  if (!name || !email || !password || !otp) {
     // alert("Name is Required!");
     return res.json({
-      error: "Name is required",
+      error: "All fields are required",
     });
   }
 
@@ -31,6 +33,15 @@ const registerUser = async (req, res) => {
     return res.json({
       error: "Email is taken already",
     });
+  }
+
+  const response = await OTP.find({email}).sort({createdAt: -1}).limit(1);
+
+  if(response.length === 0 || otp !== response[0].otp){
+    return res.status(400).json({
+      success: false,
+      message: "The OTP is not valid"
+    })
   }
 
   let user = new User();
@@ -60,7 +71,12 @@ const registerUser = async (req, res) => {
 
     console.log("RegToken: ", token);
 
-    res.send({ result, auth: token });
+    // res.send({ result, auth: token });
+    res.status(200).json({
+      success: true,
+      message: "User Registered Successfully",
+      token
+    });
   });
 
   // const accessToken = await signAccessToken(result.id);
@@ -135,4 +151,44 @@ const loginUser = async (req, res) => {
   // res.json(user);
 };
 
-module.exports = { registerUser, loginUser };
+const sendOTP = async (req, res) => {
+  try {
+    const { email, name } = req.body;
+    const checkUserPresent = await User.findOne({ email });
+
+    if (checkUserPresent) {
+      return res.status(401).json({
+        success: false,
+        message: "User is already registered",
+      });
+    }
+
+    let otp = otpGenerator.generate(6, {
+      upperCaseAlphabets: false,
+      lowerCaseAlphabets: false,
+      specialChars: false,
+    });
+
+    let result = await OTP.findOne({ otp: otp });
+    while (result) {
+      otp = otpGenerator.generate(6, {
+        upperCaseAlphabets: false,
+      });
+
+      result = await OTP.findOne({ otp: otp });
+    }
+
+    const otpPayload = { email, name, otp };
+    const otpBody = await OTP.create(otpPayload);
+    res.status(200).json({
+      success: true,
+      message: "OTP sent successfully",
+      otp,
+    });
+  } catch (error) {
+    console.log(`Error: ${error.message}`);
+    return res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+module.exports = { registerUser, loginUser, sendOTP };
