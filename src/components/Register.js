@@ -10,12 +10,37 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
+    otp: "",
   });
+
+  const getOTP = async (e) => {
+    const { name, email, password, otp } = data;
+
+    try {
+      const res = await fetch("http://localhost:4000/send-otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const response = await res.json();
+
+      if (!response.success) {
+        alert(response.message);
+      } else {
+        alert(response.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const registerUser = async (e) => {
     e.preventDefault();
 
-    const { name, email, password } = data;
+    const { name, email, password, otp } = data;
 
     try {
       const res = await fetch("http://localhost:4000/register", {
@@ -28,12 +53,12 @@ const Register = () => {
 
       const response = await res.json();
 
-      if (response.error) {
-        alert(response.error);
+      if (!response.success) {
+        alert(response.message);
       } else {
         // localStorage.setItem("user", JSON.stringify(response.result));
         // localStorage.setItem("token", JSON.stringify(response.auth));
-        alert("User Registered Successfully !");
+        alert(response.message);
         navigate("/login");
       }
 
@@ -81,8 +106,13 @@ const Register = () => {
           <div className="flex justify-center gap-2 p-10">
             <div className="flex flex-col">
               <label className="p-1 m-2 font-pop2 font-medium">Name</label>
-              <label className="p-1 m-2 mt-3 font-pop2 font-medium">Email</label>
-              <label className="p-1 m-2 mt-3 font-pop2 font-medium">Password</label>
+              <label className="p-1 m-2 mt-3 font-pop2 font-medium">
+                Email
+              </label>
+              <label className="p-1 m-2 mt-3 font-pop2 font-medium">
+                Password
+              </label>
+              <label className="p-1 m-2 mt-3 font-pop2 font-medium">OTP</label>
             </div>
 
             <div className="flex flex-col">
@@ -111,11 +141,28 @@ const Register = () => {
                 value={data.password}
                 onChange={(e) => setData({ ...data, password: e.target.value })}
               />
+              <div>
+                <input
+                  className="p-1 m-2 w-24 border-2 border-gray-300"
+                  type="password"
+                  placeholder="enter otp..."
+                  value={data.otp}
+                  onChange={(e) => setData({ ...data, otp: e.target.value })}
+                />
+
+                <button
+                  className="text-red-900 mx-5 bg-yellow-200 p-2 w-24 rounded-lg hover:bg-gray-700 hover:text-white hover:border-0 font-pop2 font-medium border-2 text-sm border-red-900"
+                  type="button"
+                  onClick={() => getOTP()}
+                >
+                  Send OTP
+                </button>
+              </div>
             </div>
           </div>
           <div className="flex justify-center pb-5">
             <button
-              className="text-white bg-red-900 p-2 w-20 rounded-lg hover:bg-gray-700 font-pop2 font-normal"
+              className="text-white bg-red-900 p-2 w-24 rounded-lg hover:bg-gray-700 font-pop2 font-normal"
               type="submit"
               onClick={() => setUsername(data.name)}
             >
