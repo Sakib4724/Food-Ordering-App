@@ -6,23 +6,39 @@ import emailjs from "emailjs-com";
 const Contact = () => {
   const form = useRef();
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
 
-    emailjs
-      .sendForm("service_9lm4mz8", "template_g9qjhed", form.current, {
-        publicKey: "AfP7vmd3-gWswDrVV",
-      })
+    const data = {
+      message: form.current.message.value,
+      name: form.current.name.value,
+      email: form.current.email.value
+    }
 
-      .then(
-        () => {
-          e.target.reset();
-          console.log("SUCCESS!");
+    // const message = form.current.message.value;
+    // const name = form.current.name.value;
+    // const email = form.current.email.value;
+
+    try {
+      const res = await fetch("http://localhost:4000/send-message", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        (error) => {
-          console.log("FAILED...", error.text);
-        }
-      );
+        body: JSON.stringify(data),
+      });
+
+      const response = await res.json();
+
+      if (!response.success) {
+        alert(response.message);
+      } else {
+        alert(response.message);
+        form.current.reset();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -32,14 +48,17 @@ const Contact = () => {
         <h2 className="font-bold text-3xl">Contact Us</h2>
       </div>
 
-      <div className="flex justify-center gap-24 bg-yellow-100 p-10 mx-auto rounded-xl" style={{width: "800px"}}>
+      <div
+        className="flex justify-center gap-24 bg-yellow-100 p-10 mx-auto rounded-xl"
+        style={{ width: "800px" }}
+      >
         <div className="flex flex-col">
           <article className="pb-24">
             <MdOutlineEmail className="text-3xl" />
             <h4>Email</h4>
-            <h5>sakibshaikh2425@gmail.com</h5>
+            <h5>sakibshaikh4724@gmail.com</h5>
             <a
-              href="mailto:sakibshaikh2425@gmail.com"
+              href="mailto:sakibshaikh4724@gmail.com"
               target="_blank"
               className="font-bold text-red-900 w-36 hover:text-gray-700"
             >

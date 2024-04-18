@@ -4,6 +4,7 @@ const jwtKey = "demokey";
 const bcrypt = require("bcrypt");
 const otpGenerator = require('otp-generator');
 const OTP = require("../models/otp");
+const contactMail = require("../utils/contactMail");
 
 const registerUser = async (req, res) => {
   // console.log(req.body);
@@ -191,4 +192,28 @@ const sendOTP = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser, sendOTP };
+const sendMessage = async (req, res) => {
+  try{
+    const {name, email, message} = req.body;
+
+    const mailResponse = await contactMail(
+      email,
+      name,
+      `
+      <h2>Message from ${name} (${email})</h2>
+      <p>${message}</p>
+      `
+    )
+    console.log("Email sent successfully: ", mailResponse);
+    res.status(200).json({
+      success: true,
+      message: "Message sent successfully",
+    });
+  }
+  catch(error) {
+    console.log("Error occurred while sending email: ", error);
+    return res.status(500).json({success: false, error: error.message});
+  }
+}
+
+module.exports = { registerUser, loginUser, sendOTP, sendMessage };
