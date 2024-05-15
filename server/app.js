@@ -20,7 +20,8 @@ const useRouter = require('./routes/user.route');
 const cartRouter = require('./routes/cart.route');
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/foodapkuser")
+  // .connect("mongodb://127.0.0.1:27017/foodapkuser")
+  .connect(`${process.env.MONGODB_URI}/zaikaauser`)
   .then(() => console.log("Database connected!"))
   .catch((err) => console.log("Database not connected", err));
 
